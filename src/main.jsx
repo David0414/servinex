@@ -35,9 +35,8 @@ const services = [
 ];
 
 function Brand({light = false}) {
-  return <a href="#inicio" className={`brand ${light ? 'light' : ''}`} aria-label="Servinex inicio">
-    <svg viewBox="0 0 80 52" aria-hidden="true"><path d="M49 5H23L4 25l33 6-13 14H1l-1 6h31l24-26-33-6 7-7h20z" fill="currentColor"/><path d="M45 24l25 27h10L53 20z" fill="currentColor"/><path d="M56 5h21L62 20H43z" fill="#ff792b"/></svg>
-    <span>Servinex<span className="brand-sub">SERVICIOS EN QUERÉTARO</span></span>
+  return <a href="#inicio" className={`brand brand-logo ${light ? 'light' : ''}`} aria-label="Servinex inicio">
+    <img src="/images/logo-servinex.png" alt="Servinex" width="1254" height="1254"/>
   </a>;
 }
 
