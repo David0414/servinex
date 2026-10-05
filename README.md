@@ -4,6 +4,8 @@ Sitio corporativo en React y Vite para destape de drenajes, fumigación, jardine
 
 Incluye movimiento de profundidad al pasar el cursor, animaciones de entrada, diseño adaptable, preguntas frecuentes y formulario para preparar solicitudes por WhatsApp. El formulario no procesa pagos ni confirma citas. Respeta la preferencia de movimiento reducido.
 
+Incluye enlaces para llamar al 442 121 3600 (`tel:+524421213600`), contacto directo por WhatsApp y un botón fijo de WhatsApp en la esquina inferior derecha. El teléfono del negocio se usa como valor predeterminado cuando no hay una variable configurada. El cliente confirma el envío de los mensajes en WhatsApp.
+
 ## Desarrollo
 
 ```sh
@@ -33,4 +35,4 @@ Esta versión no necesita backend ni base de datos: el visitante envía su mensa
 
 ## Imágenes y marca
 
-Las imágenes ilustrativas de los cuatro servicios se generaron con la herramienta integrada de generación de imágenes y se guardan en `public/images/`. No son fotografías de trabajos, empleados o proveedores reales de Servinex. Los prompts se documentan en `docs/imagenes.md`. Las fuentes se sirven desde Google Fonts. El encabezado y el pie de página utilizan el logotipo original proporcionado por el usuario en `public/images/logo-servinex.png`; CSS encuadra la marca para ocultar el margen blanco amplio de la imagen. No se han inventado testimonios, cifras ni dirección.
+Las imágenes ilustrativas de los cuatro servicios se generaron con la herramienta integrada de generación de imágenes y se guardan en `public/images/`. No son fotografías de trabajos, empleados o proveedores reales de Servinex. Los prompts se documentan en `docs/imagenes.md`. Las fuentes se sirven desde Google Fonts. El encabezado y el pie de página utilizan el logotipo original proporcionado por el usuario en `public/images/logo-servinex.png`; CSS encuadra la marca para ocultar el margen blanco amplio de la imagen. El icono de la pestaña es `public/favicon-servinex.svg`, con el símbolo del logo original expresado como trazos SVG y su nombre de archivo propio para evitar reutilizar el icono anterior de la caché. Se puede regenerar con `scripts/create-favicon.ps1`. No se han inventado testimonios, cifras ni dirección.

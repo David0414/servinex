@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {ArrowUpRight, ArrowRight, Droplets, Sprout, Bug, Wrench, ShieldCheck, Check, Menu, X, MessageCircle, ChevronDown, MoveUpRight, Clock3, MapPin, Plus, Minus} from 'lucide-react';
+import {ArrowUpRight, ArrowRight, Droplets, Sprout, Bug, Wrench, ShieldCheck, Check, Menu, X, MessageCircle, ChevronDown, MoveUpRight, Clock3, MapPin, Plus, Minus, Phone} from 'lucide-react';
 import './style.css';
 import './service-layout.css';
 
-const phone = (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, '');
+const phone = (import.meta.env.VITE_WHATSAPP_NUMBER || '524421213600').replace(/\D/g, '');
 const area = import.meta.env.VITE_SERVICE_AREA;
 const displayPhone = phone.length === 12 ? `${phone.slice(-10, -7)} ${phone.slice(-7, -4)} ${phone.slice(-4)}` : phone;
+const callHref = `tel:+${phone}`;
+const whatsappHref = `https://wa.me/${phone}?text=${encodeURIComponent('Hola, Servinex. Quiero información sobre sus servicios.')}`;
 const services = [
   {
     name: 'Destape de drenajes', tag: 'DRENAJES Y TUBERÍAS', icon: Droplets,
@@ -33,6 +35,13 @@ const services = [
     details: ['Reparación de fugas', 'Instalación de llaves, lavabos y sanitarios', 'Reparación de tuberías de agua']
   }
 ];
+
+function WhatsAppIcon({size = 24}) {
+  return <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+    <path d="M16 3a13 13 0 0 0-11.25 19.52L3 29l6.65-1.74A13 13 0 1 0 16 3Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>
+    <path d="M11.2 8.9c-.3-.6-.6-.6-.9-.6h-.8c-.3 0-.7.1-1 .4-.4.4-1.3 1.3-1.3 3.1s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.3 5.4 3.1 1.2 3.7 1 4.4.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.4-.3-.9-.6l-2.2-1c-.3-.1-.6-.2-.8.2l-1.1 1.4c-.2.2-.4.3-.7.1-1.6-.6-3.2-1.6-4.3-3.3-.2-.3 0-.5.2-.7l.7-.8c.2-.2.2-.4.3-.6.1-.2 0-.5-.1-.7Z" fill="currentColor"/>
+  </svg>;
+}
 
 function Brand({light = false}) {
   return <a href="#inicio" className={`brand brand-logo ${light ? 'light' : ''}`} aria-label="Servinex inicio">
@@ -114,7 +123,7 @@ function App() {
           <p>Destape de drenajes, fumigación, jardinería y plomería.<br/>Solicita tu servicio. Nosotros coordinamos al proveedor y tu cita.</p>
           <div className="hero-actions">
             <button className="button" onClick={() => request()}>Pedir cotización <ArrowUpRight size={20}/></button>
-            <a className="text-link" href="#servicios">Ver servicios <ArrowRight size={18}/></a>
+            <a className="hero-call" href={callHref}><Phone size={23}/><span>Llama ahora<strong>{displayPhone}</strong></span></a>
           </div>
           <div className="hero-assurance"><ShieldCheck size={18}/><span>Un solo contacto para cotizar y agendar.</span></div>
         </div>
@@ -158,11 +167,12 @@ function App() {
         ].map(([t, d, Icon], i) => <div className="step reveal" key={t}><div className="step-top"><span>0{i+1}</span><Icon size={25}/></div><h3>{t}</h3><p>{d}</p></div>)}</div>
       </section>
 
-      <section className="cta-band"><div className="reveal"><div className="eyebrow">ATENCIÓN EN TODO QUERÉTARO</div><h2>¿Necesitas<br/><em>un servicio?</em></h2></div><div className="cta-right"><p>Dinos qué necesitas y en dónde.<br/>Te ayudamos a cotizar y agendar.</p><button className="button" onClick={() => request()}>Pedir cotización <ArrowUpRight size={20}/></button></div></section>
+      <section className="cta-band"><div className="reveal"><div className="eyebrow">ATENCIÓN EN TODO QUERÉTARO</div><h2>¿Necesitas<br/><em>un servicio?</em></h2></div><div className="cta-right"><p>Dinos qué necesitas y en dónde.<br/>Te ayudamos a cotizar y agendar.</p><div className="cta-actions"><button className="button" onClick={() => request()}>Pedir cotización <ArrowUpRight size={20}/></button><a className="button whatsapp-button" href={whatsappHref} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={22}/>Contáctanos</a></div><a className="cta-call" href={callHref}><Phone size={18}/>Llama ya: {displayPhone}</a></div></section>
 
       <section className="section contact" id="contacto">
         <div className="contact-copy reveal"><div className="eyebrow">CONTACTO</div><h2>Solicita tu<br/><em>cotización.</em></h2><p>Selecciona el servicio, dinos tu zona y describe el trabajo. Envía tu solicitud por WhatsApp para cotizar con Servinex.</p>
-          <div className="contact-detail"><MessageCircle/><div><strong>{phone ? <a href={`https://wa.me/${phone}`} target="_blank" rel="noopener noreferrer">WhatsApp {displayPhone}</a> : 'Contacto por WhatsApp'}</strong><span>Habla directamente con Servinex.</span></div></div>
+          <div className="contact-detail"><Phone/><div><strong><a href={callHref}>Llama ahora: {displayPhone}</a></strong><span>Cuéntanos qué servicio necesitas.</span></div></div>
+          <div className="contact-detail"><WhatsAppIcon size={23}/><div><strong><a href={whatsappHref} target="_blank" rel="noopener noreferrer">Contáctanos por WhatsApp</a></strong><span>Escríbenos al {displayPhone}.</span></div></div>
           <div className="contact-detail"><MapPin/><div><strong>{area || 'Consulta nuestra cobertura'}</strong><span>Confirmamos disponibilidad para tu zona.</span></div></div>
           <div className="faq"><h3>Preguntas frecuentes</h3>{faqs.map(([q, a], i) => <div className="faq-item" key={q}><button aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>{q}{open === i ? <Minus size={17}/> : <Plus size={17}/>}</button>{open === i && <p>{a}</p>}</div>)}</div>
         </div>
@@ -173,7 +183,7 @@ function App() {
           <div className="form-row"><label>Tu nombre<input name="nombre" placeholder="Nombre" autoComplete="name" maxLength={100} required/></label><label>Teléfono<input name="telefono" type="tel" placeholder="Número de contacto" autoComplete="tel" minLength={8} maxLength={20} required/></label></div>
           <label>Municipio y colonia<input name="zona" placeholder="¿En qué zona de Querétaro estás?" autoComplete="address-level3" maxLength={150} required/></label>
           <label>Describe el trabajo<textarea name="mensaje" placeholder="Por ejemplo: el drenaje de mi patio está tapado…" rows="3" maxLength={2000} required/></label>
-          <button className="button submit" type="submit">{phone ? 'Cotizar por WhatsApp' : 'Preparar mi solicitud'}<MessageCircle size={19}/></button>
+          <button className="button submit" type="submit">{phone ? 'Cotizar por WhatsApp' : 'Preparar mi solicitud'}<WhatsAppIcon size={22}/></button>
           <p className="privacy">Se abrirá WhatsApp con tu mensaje. Envíalo para solicitar la cotización; este formulario no confirma una cita.</p>
           {sent && <p className="form-status" role="status">{status}</p>}
         </form>
@@ -184,8 +194,9 @@ function App() {
       <div><Brand light/><p>Destape de drenajes, fumigación,<br/>jardinería y plomería en Querétaro.<br/>Coordinamos tu servicio con proveedores.</p></div>
       <div><span>SERVICIOS</span>{services.map(s => <button key={s.name} onClick={() => request(s.name)}>{s.name}</button>)}</div>
       <div><span>EXPLORA</span><a href="#nosotros">Por qué Servinex</a><a href="#proceso">Cómo funciona</a><a href="#contacto">Contacto</a></div>
-      <div className="footer-call"><span>¿QUÉ SERVICIO NECESITAS?</span><button onClick={() => request()}>Cotiza aquí.<MoveUpRight size={30}/></button></div>
+      <div className="footer-call"><span>¿QUÉ SERVICIO NECESITAS?</span><button onClick={() => request()}>Cotiza aquí.<MoveUpRight size={30}/></button><a className="footer-contact" href={callHref}><Phone size={17}/>{displayPhone}</a><a className="footer-contact" href={whatsappHref} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={19}/>Contáctanos por WhatsApp</a></div>
     </div><div className="footer-bottom"><span>© {new Date().getFullYear()} Servinex. Todos los derechos reservados.</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+    <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={`Contáctanos por WhatsApp al ${displayPhone}`} title="Contáctanos por WhatsApp"><WhatsAppIcon size={32}/><span>Contáctanos<small>por WhatsApp</small></span></a>
   </>;
 }
 
